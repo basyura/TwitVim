@@ -1,3 +1,38 @@
+
+Version 0.5.5 ベースのオレオレ修正
+
+本家との違い
+
+  * ユーザごとの発言をセパレータ(-)で区切る
+  * ユーザIDを10バイトに空白を詰めて揃える
+  * 投稿用ウインドウから Enter で投稿(リプライ時も同様)
+  * 投稿履歴を遡って表示可
+  * ユーザIDを ~/.twitvim.users に出力(ディクショナリとして使用可)
+  * 上記を使用して UserTwitter 使用時のユーザID補完
+
+tiwtvim.vim で定義しているキーバインディング
+
+  投稿用ウインドウ
+    ノーマルモード
+      q     ウインドウを閉じる
+      <CR>  ツイート
+      <C-s> 履歴をひとつずつ遡って表示
+    インサートモード
+      <C-s> 履歴をひとつずつ遡って表示
+
+キーバインディング例
+
+  nnoremap <Space>po   :<C-u>WPosttoTwitter<Enter>
+  nnoremap s           :<C-u>WPosttoTwitter<Enter>
+  nnoremap <Space>fr   :<C-u>FriendsTwitter<Enter>
+  nnoremap <Space>re   :<C-u>RepliesTwitter<Enter>
+  nnoremap <Space>tt   :<C-u>ListTwitter tottoruby<Enter>
+  nnoremap <Space>nn   :<C-u>NextTwitter<Enter>
+  nnoremap <Space>pp   :<C-u>BackTwitter<Enter>
+
+
+--------------
+
 This is a mirror of http://www.vim.org/scripts/script.php?script_id=2204
 
 ===========================================================
