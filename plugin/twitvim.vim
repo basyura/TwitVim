@@ -1569,7 +1569,7 @@ endfunction
 function! s:wreply_twitter_send()
   call <SID>post_twitter(join(getline(1, "$")) , s:inreplyto)
   let s:inreplyto = 0
-  bw!
+  bd!
 endfunction
 
 " Extract all user names from a line in the timeline. Return the poster's name as well as names from all the @replies.
@@ -3542,7 +3542,7 @@ function! s:twitvim_say_settings()
 "  setlocal statusline=%f
   setlocal nobuflisted
   setlocal noswapfile
-  nnoremap <buffer> <silent> q :bw!<CR>
+  nnoremap <buffer> <silent> q :bd!<CR>
   nnoremap <buffer> <silent> <C-s> :call <SID>show_history()<CR>0
   inoremap <buffer> <silent> <C-s> <ESC>:call <SID>show_history()<CR>0
   AlterCommand <buffer> w  :echo 'please enter to tweet'
@@ -3551,7 +3551,7 @@ endfunction
 
 function! s:wpost_twitter_send()
   call <SID>post_twitter(join(getline(1, "$")),0)
-  bw!
+  bd!
 endfunction
 
 " for recovery tweet
