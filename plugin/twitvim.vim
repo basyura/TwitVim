@@ -3533,9 +3533,14 @@ endfunction
 
 augroup TwitvimSay
   autocmd! TwitvimSay
+  autocmd FileType twitvim call s:twitvim_settings()
   autocmd FileType twitvim_say call s:twitvim_say_settings()
   autocmd BufWinLeave twitvim_say call s:save_to_history_at_leave()
 augroup END
+
+function! s:twitvim_settings()
+  nnoremap <buffer> <silent> <Leader><Leader> :call <SID>RefreshTimeline()<cr>
+endfunction
 
 function! s:twitvim_say_settings()
   setlocal bufhidden=delete 
