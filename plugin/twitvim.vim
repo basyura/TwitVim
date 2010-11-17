@@ -3540,6 +3540,8 @@ augroup END
 
 function! s:twitvim_settings()
   nnoremap <buffer> <silent> <Leader><Leader> :call <SID>RefreshTimeline()<cr>
+  nnoremap <buffer> <silent> <Leader>r :call <SID>Quick_Reply()<cr>
+  nnoremap <buffer> <silent> <Leader>@ :call <SID>show_inreplyto()<cr>
 endfunction
 
 function! s:twitvim_say_settings()
