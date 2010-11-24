@@ -2095,7 +2095,7 @@ function! s:twitter_win(wintype)
 
 	" Launch browser with URL in visual selection or at cursor position.
 	nnoremap <buffer> <silent> <A-g> :call <SID>launch_url_cword()<cr>
-	nnoremap <buffer> <silent> <Leader>g :call <SID>launch_url_cword()<cr>
+	"nnoremap <buffer> <silent> <Leader>g :call <SID>launch_url_cword()<cr>
 	vnoremap <buffer> <silent> <A-g> y:call <SID>launch_browser(@")<cr>
 	vnoremap <buffer> <silent> <Leader>g y:call <SID>launch_browser(@")<cr>
 
@@ -2173,6 +2173,7 @@ function! s:twitter_wintext_view(text, wintype, view)
     call setline('.', a:text)
     normal! 1G
 
+    setlocal nomodified
     setlocal nomodifiable
 
     " Restore the saved view if provided.
@@ -3542,6 +3543,7 @@ function! s:twitvim_settings()
   nnoremap <buffer> <silent> <Leader><Leader> :call <SID>RefreshTimeline()<cr>
   nnoremap <buffer> <silent> <Leader>r :call <SID>Quick_Reply()<cr>
   nnoremap <buffer> <silent> <Leader>@ :call <SID>show_inreplyto()<cr>
+  nnoremap <buffer> <silent> <Leader>g :call <SID>launch_url_cword()<cr>
 endfunction
 
 function! s:twitvim_say_settings()
@@ -3552,6 +3554,7 @@ function! s:twitvim_say_settings()
   nnoremap <buffer> <silent> q :bd!<CR>
   nnoremap <buffer> <silent> <C-s> :call <SID>show_history()<CR>0
   inoremap <buffer> <silent> <C-s> <ESC>:call <SID>show_history()<CR>0
+  
   AlterCommand <buffer> w  :echo 'please enter to tweet'
   AlterCommand <buffer> wq :echo 'please enter to tweet'
 endfunction
