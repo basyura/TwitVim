@@ -2912,7 +2912,7 @@ function! s:format_user_info(output)
 
     call add(text, 'Location: '.s:xml_get_element(output, 'location'))
     call add(text, 'Website: '.s:xml_get_element(output, 'url'))
-    call add(text, 'Bio: '.s:xml_get_element(output, 'description'))
+    call add(text, 'Bio: '.s:convert_entity(s:xml_get_element(output, 'description')))
     call add(text, '')
     call add(text, 'Following: '.s:xml_get_element(output, 'friends_count'))
     call add(text, 'Followers: '.s:xml_get_element(output, 'followers_count'))
