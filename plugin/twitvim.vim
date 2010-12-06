@@ -1734,6 +1734,7 @@ function! s:show_inreplyto()
     setlocal modifiable
     call append(lineno, '+ '.line)
     setlocal nomodifiable
+    setlocal nomodified
     let s:curbuffer.buffer = getline(1, '$')
 
     redraw
