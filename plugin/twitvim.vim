@@ -2453,10 +2453,16 @@ function! s:show_dm_xml(sent_or_recv, timeline, page)
 	call add(s:curbuffer.dmids, s:xml_get_element(item, 'id'))
 
 	let user = s:xml_get_element(item, a:sent_or_recv == 'sent' ? 'recipient_screen_name' : 'sender_screen_name')
+
+        while len(user) < 10
+          let user .= ' '
+        endwhile
+
 	let mesg = s:xml_get_element(item, 'text')
 	let date = s:time_filter(s:xml_get_element(item, 'created_at'))
 
 	call add(text, user.": ".s:convert_entity(mesg).' |'.date.'|')
+        call add(text, s:create_separator())
 
 	let matchcount += 1
     endwhile
