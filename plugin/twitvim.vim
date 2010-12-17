@@ -2973,7 +2973,7 @@ function! s:get_user_info(username)
 endfunction
 
 if !exists(":ProfileTwitter")
-    command -nargs=1 ProfileTwitter :call <SID>get_user_info(<q-args>)
+    command -nargs=1 -complete=custom,Twitvim_Users_Completion ProfileTwitter :call <SID>get_user_info(<q-args>)
 endif
 
 
