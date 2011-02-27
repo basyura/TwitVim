@@ -3254,8 +3254,8 @@ function! s:GetShortURL(tweetmode, url, shortfn)
 
     let shorturl = bitly#shorten(g:bitly_login , g:bitly_api_key , url).url
     let content  = http#get(url).content
-    let charset  = matchstr(content , 'charset=\zs.\{-}\ze">')
-    let title    = iconv(matchstr(content , '<title>\zs.*\ze</title>') , 
+    let charset  = matchstr(content , 'charset=\zs.\{-}\ze".\{-}>')
+    let title    = iconv(matchstr(content , '<title>\zs.\{-}\ze</title>') , 
                        \ charset , 'utf-8')
     let shorturl = title . ' ' . shorturl
     execute "normal! a".shorturl."\<esc>"
