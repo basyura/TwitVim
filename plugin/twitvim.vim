@@ -3257,7 +3257,7 @@ function! s:GetShortURL(tweetmode, url, shortfn)
     let charset  = matchstr(content , 'charset=\zs.\{-}\ze".\{-}>')
     let title    = iconv(matchstr(content , '<title>\zs.\{-}\ze</title>') , 
                        \ charset , 'utf-8')
-    let shorturl = title . ' ' . shorturl
+    let shorturl = '@ ' . title . ' ' . shorturl
     execute "normal! a".shorturl."\<esc>"
 
     "let shorturl = call(function("s:".a:shortfn), [url])
