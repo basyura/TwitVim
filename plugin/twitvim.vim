@@ -31,7 +31,7 @@ let s:char_limit = 246
 " Allow the user to override the API root, e.g. for identi.ca, which offers a
 " Twitter-compatible API.
 function! s:get_api_root()
-    return exists('g:twitvim_api_root') ? g:twitvim_api_root : "http://api.twitter.com/1"
+    return exists('g:twitvim_api_root') ? g:twitvim_api_root : "https://api.twitter.com/1"
 endfunction
 
 " Allow user to set the format for retweets.
