@@ -2688,7 +2688,7 @@ function! s:send_dm(user, mesg)
 endfunction
 
 if !exists(":SendDMTwitter")
-    command -nargs=1 SendDMTwitter :call <SID>send_dm(<q-args>, '')
+    command -nargs=1 -complete=custom,Twitvim_Users_Completion SendDMTwitter :call <SID>send_dm(<q-args>, '')
 endif
 
 " Call Twitter API to get rate limit information.
