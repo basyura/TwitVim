@@ -1852,32 +1852,7 @@ vmenu Plugin.TwitVim.Post\ selection <Plug>TwitvimVisual
 
 " Launch web browser with the given URL.
 function! s:launch_browser(url)
-    if !exists('g:twitvim_browser_cmd') || g:twitvim_browser_cmd == ''
-	" Beep and error-highlight 
-	execute "normal! \<Esc>"
-	call s:errormsg('Browser cmd not set. Please add to .vimrc: let twitvim_browser_cmd="browsercmd"')
-	return -1
-    endif
-
-    let startcmd = has("win32") || has("win64") ? "!start " : "! "
-    let endcmd = has("unix") ? "&" : ""
-
-    " Escape characters that have special meaning in the :! command.
-    let url = substitute(a:url, '!\|#\|%', '\\&', 'g')
-
-    redraw
-    echo "Launching web browser..."
-    let v:errmsg = ""
-    silent! execute startcmd g:twitvim_browser_cmd url endcmd
-    if v:errmsg == ""
-	redraw
-	echo "Web browser launched."
-    else
-	call s:errormsg('Error launching browser: '.v:errmsg)
-	return -2
-    endif
-
-    return 0
+  call openbrowser#open("http://yahoo.co.jp") | return 0
 endfunction
 
 " Launch web browser with the URL at the cursor position. If possible, this
