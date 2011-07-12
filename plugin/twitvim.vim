@@ -1852,7 +1852,7 @@ vmenu Plugin.TwitVim.Post\ selection <Plug>TwitvimVisual
 
 " Launch web browser with the given URL.
 function! s:launch_browser(url)
-  call openbrowser#open("http://yahoo.co.jp") | return 0
+  call openbrowser#open(a:url) | return 0
 endfunction
 
 " Launch web browser with the URL at the cursor position. If possible, this
