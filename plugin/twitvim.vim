@@ -269,7 +269,7 @@ endfunction
 " Get the content of the n'th element in a series of elements.
 function! s:xml_get_nth(xmlstr, elem, n)
     let matchres = matchlist(a:xmlstr, '<'.a:elem.'\%( [^>]*\)\?>\(.\{-}\)</'.a:elem.'>', -1, a:n)
-    return matchres == [] ? "" : matchres[1]
+    return matchres == [] ? "" : s:convert_entity(matchres[1])
 endfunction
 
 " Get the content of the specified element.
@@ -1991,7 +1991,10 @@ function! s:nr2enc_char(charcode)
   endif
   let char = s:nr2byte(a:charcode)
   if strlen(char) > 1
-    let char = strtrans(iconv(char, 'utf-8', &encoding))
+    let iconv_str = iconv(char, 'utf-8', &encoding)
+    if iconv_str != ""
+      let char = strtrans(iconv_str)
+    endif
   endif
   return char
 endfunction
@@ -2181,7 +2184,7 @@ function! s:format_status_xml(item)
     let item = s:xml_remove_elements(item, 'retweeted_status')
 
     let user = s:xml_get_element(item, 'screen_name')
-    let text = s:convert_entity(s:xml_get_element(item, 'text'))
+    let text = s:xml_get_element(item, 'text')
     let pubdate = s:time_filter(s:xml_get_element(item, 'created_at'))
 
     let s:twitvim_users[user] = 1
@@ -2436,7 +2439,7 @@ function! s:show_dm_xml(sent_or_recv, timeline, page)
 	let mesg = s:xml_get_element(item, 'text')
 	let date = s:time_filter(s:xml_get_element(item, 'created_at'))
 
-	call add(text, user.": ".s:convert_entity(mesg).' |'.date.'|')
+	call add(text, user.": ".mesg.' |'.date.'|')
         call add(text, s:create_separator())
 
 	let matchcount += 1
@@ -2894,7 +2897,7 @@ function! s:format_user_info(output)
 
     call add(text, 'Location: '.s:xml_get_element(output, 'location'))
     call add(text, 'Website: '.s:xml_get_element(output, 'url'))
-    call add(text, 'Bio: '.s:convert_entity(s:xml_get_element(output, 'description')))
+    call add(text, 'Bio: '.s:xml_get_element(output, 'description'))
     call add(text, '')
     call add(text, 'Following: '.s:xml_get_element(output, 'friends_count'))
     call add(text, 'Followers: '.s:xml_get_element(output, 'followers_count'))
@@ -2909,7 +2912,7 @@ function! s:format_user_info(output)
     let usernode = s:xml_remove_elements(output, 'status')
     let startdate = s:time_filter(s:xml_get_element(usernode, 'created_at'))
     call add(text, 'Started on: |'.startdate.'|')
-    let timezone = s:convert_entity(s:xml_get_element(usernode, 'time_zone'))
+    let timezone = s:xml_get_element(usernode, 'time_zone')
     call add(text, 'Time zone: '.timezone)
     call add(text, '')
 
@@ -2917,7 +2920,7 @@ function! s:format_user_info(output)
     if statusnode != ""
 	let status = s:xml_get_element(statusnode, 'text')
 	let pubdate = s:time_filter(s:xml_get_element(statusnode, 'created_at'))
-	call add(text, 'Status: '.s:convert_entity(status).' |'.pubdate.'|')
+	call add(text, 'Status: '.status.' |'.pubdate.'|')
     endif
 
     return text
@@ -3397,8 +3400,7 @@ function! s:show_summize(searchres, page)
 	" Parse and save the status ID.
 	let status = substitute(s:xml_get_element(item, 'id'), '^.*:', '', '')
 	call add(s:curbuffer.statuses, status)
-
-	call add(text, sender.": ".s:convert_entity(title).' |'.pubdate.'|')
+	call add(text, sender.": ".title.' |'.pubdate.'|')
         call add(text, s:create_separator())
 
 	let matchcount += 1
